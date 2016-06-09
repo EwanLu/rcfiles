@@ -1,94 +1,84 @@
-# force source .zshenv to prevent system modify it
-source $HOME/.zsh/.zshenv
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/ewan41311/.oh-my-zsh
 
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="random"
 
-##########################
-# Completions
-##########################
-fpath=($fpath $HOME/.zsh/completions)
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# ``antigen apply`` would do it
-# autoload -Uz compinit
-# compinit -u
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-zstyle ':completion:*' menu select=2
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' special-dirs true
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-##########################
-# antigen plugins
-##########################
-source $HOME/.zsh/antigen.zsh
-if [ -f $HOME/.local-plugins.zsh ]; then
-    source $HOME/.local-plugins.zsh
-fi
-antigen apply
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-##########################
-# Prompt
-##########################
-if [[ -f $HOME/.zsh/.zshrc.prompt ]]; then
-    source $HOME/.zsh/.zshrc.prompt
-fi
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
-##########################
-# Aliases
-##########################
-if [[ -f $HOME/.zsh/.zshrc.aliases ]]; then
-    source $HOME/.zsh/.zshrc.aliases
-fi
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
 
-##########################
-# Functions
-##########################
-if [[ -d $HOME/.zsh/functions ]]; then
-    for i in $(ls $HOME/.zsh/functions/); do
-        source $HOME/.zsh/functions/$i
-    done
-fi
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
 
-##########################
-# Local Files
-##########################
-if [[ -f $HOME/.zshlocal ]]; then
-    source $HOME/.zshlocal
-fi
+# User configuration
 
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# export MANPATH="/usr/local/man:$MANPATH"
 
-##########################
-# History
-##########################
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+source $ZSH/oh-my-zsh.sh
 
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-##########################
-# Bindkeys
-##########################
-bindkey -v
-zle -A kill-whole-line      vi-kill-line
-zle -A backward-kill-word   vi-backward-kill-word
-zle -A backward-delete-char vi-backward-delete-char
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-bindkey "\e[H"      beginning-of-line
-bindkey "\e[1~"     beginning-of-line   # for screen
-bindkey "\eOH"      beginning-of-line   # for cygwin + mosh
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-bindkey "\e[F"      end-of-line
-bindkey "\e[4~"     end-of-line         # for screen
-bindkey "\eOF"      end-of-line         # for cygwin + mosh
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-bindkey "\ej"       backward-word
-bindkey "\ek"       forward-word
-
-bindkey "\e[A"      up-line-or-search
-bindkey "\e[B"      down-line-or-search
-bindkey '^R'        history-incremental-search-backward
-
-bindkey "\e[3~"     delete-char
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"

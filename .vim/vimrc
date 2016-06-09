@@ -1,208 +1,188 @@
-" ============================================================================ "
-" Vundle initialization
-" ============================================================================ "
+" URL: http://vim.wikia.com/wiki/Example_vimrc
+" Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
+" Description: A minimal, but feature rich, example .vimrc. If you are a
+"              newbie, basing your first .vimrc on this file is a good choice.
+"              If you're a more advanced user, building your own .vimrc based
+"              on this file is still a good idea.
+ 
+"------------------------------------------------------------
+" Features {{{1
+"
+" These options and commands enable some very useful features in Vim, that
+" no user should have to live without.
+ 
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" no vi-compatible
-set nocompatible
-filetype off
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" Plugins
-Bundle 'VundleVim/Vundle.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'tpope/vim-surround'
-Bundle 'dhruvasagar/vim-table-mode'
-Bundle 'pi314/pi314.boshiamy.vim'
-Bundle 'pi314/pi314.asciiart.vim'
-Bundle 'pi314/pi314.rst.vim'
-Bundle 'pi314/todo-or-not-todo.vim'
-Bundle 'zdict/zdict.vim'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-call vundle#end()           " required
-filetype plugin on          " required
-" ============================================================================ "
-" Vundle ok
-" ============================================================================ "
+Plugin 'scrooloose/nerdtree'
 
-" Encoding settings
-set encoding=utf-8
-set langmenu=zh_TW.UTF-8
-language message zh_TW.UTF-8
-set fileformat=unix
+Plugin 'Valloric/YouCompleteMe'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-set ambiwidth=single
-
-" Show mode on bottom-left
-set showmode
-
-" Show command on bottom-right
-set showcmd
-
-" ============== "
-" Color settings "
-" ============== "
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
+ 
+" Enable syntax highlighting
 syntax on
-set hlsearch
-set background=dark
-set colorcolumn=80  " put a blue line on column 80
-hi ColorColumn ctermbg=Blue
-" change completion menu color
-highlight Pmenu    ctermfg=White ctermbg=Blue gui=bold
-highlight PmenuSel ctermfg=Black ctermbg=Cyan gui=bold
-
-" Tabline setting in .vim/plugin/tabline.vim
-hi TabLine     ctermfg=black ctermbg=grey     " not active tab page label
-hi TabLineSel  ctermfg=grey  ctermbg=black    " active tab page label
-hi TabLineFill ctermfg=grey  ctermbg=white    " fill the other place
-hi VIMlogo     ctermfg=white ctermbg=blue
-
-colorscheme pi314
-
-
-" Tab charactor related settings
-set expandtab       " changes user pressed TAB to spaces
-set smarttab
-set nosmartindent
-set autoindent
-set tabstop=4       " changes the width of the TAB character
-set shiftwidth=4    " >>, <<, == width and automatic indent width
-set softtabstop=4
-set listchars=tab:>-
-set list
-
-set wrap
-
-" Ignore case on searching
-set ignorecase
-
-" Show the coordinate of cursor
-set ruler
-
-" Enable backspace
-set backspace=indent,eol,start
-
-" Show line numbers
-set number
-
-" Status line
-set laststatus=2
+ 
+ 
+"------------------------------------------------------------
+" Must have options {{{1
+"
+" These are highly recommended options.
+ 
+" Vim with default settings does not allow easy switching between multiple files
+" in the same editor window. Users can use multiple split windows or multiple
+" tab pages to edit multiple files, but it is still best to enable an option to
+" allow easier switching between files.
+"
+" One such option is the 'hidden' option, which allows you to re-use the same
+" window and switch from an unsaved buffer without saving it first. Also allows
+" you to keep an undo history for multiple files when re-using the same window
+" in this way. Note that using persistent undo also lets you undo in multiple
+" files even in the same window, but is less efficient and is actually designed
+" for keeping undo history after closing Vim entirely. Vim will complain if you
+" try to quit without saving, and swap files will keep you safe if your computer
+" crashes.
+set hidden
+ 
+" Note that not everyone likes working this way (with the hidden option).
+" Alternatives include using tabs or split windows instead of re-using the same
+" window as mentioned above, and/or either of the following options:
+" set confirm
+" set autowriteall
+ 
+" Better command-line completion
 set wildmenu
-
-set scrolloff=5
-
-" tell vim don't create {filename}~
-set nobackup
-set nowritebackup
-if exists('+persistent_undo')
-    " tell vim don't create .{filename}.un~
-    set noundofile
-endif
-
-" set fold method as marker
-set foldmethod=marker
-
-" Funny Setting
-set norightleft
-
-" Disable X11 clipboard, it help vim not hanging on start
-set clipboard=exclude:.*
-
-" new vertical split appear on right hand side
-set splitright
-set splitbelow
-
-set pastetoggle=<leader>p
-
-" ======== "
-" Mappings "
-" ======== "
-
-" move moving between long wrapped lines
-" must use nnoremap = no recursive map
-nnoremap k gk
-nnoremap j gj
-vnoremap k gk
-vnoremap j gj
-
-nnoremap th :tabp<CR>
-nnoremap tl :tabn<CR>
-nnoremap tt :tabe<SPACE>
-nnoremap tp :tabm -1<CR>
-nnoremap tn :tabm +1<CR>
-let g:NERDTreeMapOpenInTab='tt'
-nnoremap t! :tabn 1<CR>
-nnoremap t@ :tabn 2<CR>
-nnoremap t# :tabn 3<CR>
-nnoremap t$ :tabn 4<CR>
-nnoremap t% :tabn 5<CR>
-nnoremap t^ :tabn 6<CR>
-nnoremap t& :tabn 7<CR>
-nnoremap t* :tabn 8<CR>
-nnoremap t( :tabn 9<CR>
-
-" toggle the nerd tree
-nnoremap <C-n> :NERDTreeTabsToggle<CR>
-
-" Insert a new line in normal mode, I just lazy
-nnoremap <CR> o<ESC>0D
-
-" map these by hand
-inoremap <C-h> <BS>
-nnoremap <C-h> <BS>
-
-" hot key for macro register ``q`` / ``z``
-" Do register ``q`` / ``z``
-nnoremap dq @q
-nnoremap dz @z
-
-" redraw syntax highlighting
-nnoremap <leader><C-l> :syntax sync fromstart<CR>
-
-" redraw, also wipe search highlighting
-nnoremap <C-l> :noh<CR><C-l>
-
-" convenient copy to system clipboard
-vnoremap Y "*y
-nnoremap Y "*y
-
-" QUIT!
-command! Q execute "q!"
-command! Qa execute "qa!"
-command! QA execute "qa!"
-
-" WRITE!
-cnoremap w!! w !sudo tee %
-
-" open file in new tab
-nnoremap gF <C-w>gf
-
-" indenting in visual mode
-vnoremap > >gv
-vnoremap < <gv
-
-" automatically purge trailing space on save
-autocmd BufWritePre * :%s/\s\+$//e
-
-" status line, show plugin modes
-function! VimTableModeStatusString ()
-    if tablemode#IsActive()
-        return '[table]'
-    endif
-    return ''
-endfunction
-set statusline=%<%{boshiamy#status()}%{VimTableModeStatusString()}%f\ %h%m%r%=%y\ %-14.(%l,%c%V%)\ %P
-
-" =============== "
-" Plugin settings "
-" =============== "
-
-" vim-table-mode settings ([normal] <leader>tm to enable table mode)
-let g:table_mode_corner_corner = '+'
-let g:table_mode_header_fillchar = '='
-
-let g:todo_loop_checkbox = '<C-c>'
-let g:todo_select_checkbox = '<C-k>'
+ 
+" Show partial commands in the last line of the screen
+set showcmd
+ 
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
+ 
+" Modelines have historically been a source of security vulnerabilities. As
+" such, it may be a good idea to disable them and use the securemodelines
+" script, <http://www.vim.org/scripts/script.php?script_id=1876>.
+" set nomodeline
+ 
+ 
+"------------------------------------------------------------
+" Usability options {{{1
+"
+" These are options that users frequently set in their .vimrc. Some of them
+" change Vim's behaviour in ways which deviate from the true Vi way, but
+" which are considered to add usability. Which, if any, of these options to
+" use is very much a personal preference, but they are harmless.
+ 
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+ 
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+ 
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+ 
+" Stop certain movements from always going to the first character of a line.
+" While this behaviour deviates from that of Vi, it does what most users
+" coming from other editors would expect.
+set nostartofline
+ 
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+ 
+" Always display the status line, even if only one window is displayed
+set laststatus=2
+ 
+" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm
+ 
+" Use visual bell instead of beeping when doing something wrong
+set visualbell
+ 
+" And reset the terminal code for the visual bell. If visualbell is set, and
+" this line is also included, vim will neither flash nor beep. If visualbell
+" is unset, this does nothing.
+set t_vb=
+ 
+" Enable use of the mouse for all modes
+set mouse=a
+ 
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+set cmdheight=2
+ 
+" Display line numbers on the left
+set number
+ 
+" Quickly time out on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+ 
+" Use <F11> to toggle between 'paste' and 'nopaste'
+set pastetoggle=<F2>
+ 
+ 
+"------------------------------------------------------------
+" Indentation options {{{1
+"
+" Indentation settings according to personal preference.
+ 
+" Indentation settings for using 4 spaces instead of tabs.
+" Do not change 'tabstop' from its default value of 8 with this setup.
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+ 
+" Indentation settings for using hard tabs for indent. Display tabs as
+" four characters wide.
+"set shiftwidth=4
+"set tabstop=4
+ 
+ 
+"------------------------------------------------------------
+" Mappings {{{1
+"
+" Useful mappings
+ 
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+map <C-n> :NERDTreeToggle<CR>
+ 
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+ 
+"------------------------------------------------------------
